@@ -359,9 +359,9 @@ jobs:
         if: env.TEST_PREFIX != ''
         env:
           DAPR_PERF_QPS: 1000
-          DAPR_PERF_CONNECTIONS: 16
-          DAPR_TEST_DURATION: 1
-          DAPR_PAYLOAD_SIZE: 1024
+          DAPR_PERF_CONNECTIONS: 1
+          DAPR_TEST_DURATION: 1m
+          DAPR_PAYLOAD_SIZE: 0
         run: make test-perf-pubsub_publish_grpc     
       - name: Save control plane logs
         if: always() && env.TEST_PREFIX != ''
@@ -444,5 +444,5 @@ jobs:
         run: |
           # We are not waiting for these commands to complete, and we're ignoring errors
           echo "Starting removal of resource group Dapr-Perf-${TEST_PREFIX}"
-          # az group delete --no-wait --yes --name "Dapr-Perf-${TEST_PREFIX}" || true
+          az group delete --no-wait --yes --name "Dapr-Perf-${TEST_PREFIX}" || true
         shell: bash
